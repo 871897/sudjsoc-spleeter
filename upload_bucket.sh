@@ -45,7 +45,7 @@ main(){
 		echo "Latest bucket found, generating temp bucket and uploading contents..."
 		create_temp_bucket
 		sync_bucket_contents
-		sleep 120
+		sleep 1800
 		remove_temp_bucket
 	fi
 }
