@@ -6,9 +6,9 @@ echo `date`
 
 get_latest_bucket_name(){
         echo "Searching S3 for latest bucket integer"
-        bucket_list=$(aws s3api list-buckets --query "Buckets[].Name" --region eu-west-2 | grep ${BUCKET_ROLE} | sort -nr | sed 's/"//g' | sed 's/,//g' )
+        bucket_list=$(aws s3api list-buckets --query "Buckets[].Name" --region $REGION | grep ${BUCKET_ROLE} | sort -nr | sed 's/"//g' | sed 's/,//g' )
         export latest_bucket=$(echo $bucket_list | awk '{print $1}')
-        COUNTER=$(echo $latest_bucket | sed 's/split-tmp-bucket-//g')
+        COUNTER=$(echo $latest_bucket | sed 's/split-tmp-download-bucket-//g')
 }
 
 create_temp_bucket(){
@@ -37,7 +37,7 @@ main(){
                 echo "CRITICAL: Latest bucket not found."
 
         elif    [ -v $COUNTER ]; then
-                echo "Latest bucket found, generating temp bucket and uploading contents..."
+                echo "Latest bucket found, downloading contents to server..."
                 create_temp_bucket
                 sync_bucket_contents
                 sleep 120
