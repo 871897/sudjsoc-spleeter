@@ -1,0 +1,10 @@
+[Unit]
+Description=Sudjsoc Splitter ALB / TG Control Script
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/opt/instance-lb.sh
+
+[Install]
+WantedBy=multi-user.target
